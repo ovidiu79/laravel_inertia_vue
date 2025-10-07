@@ -1,7 +1,7 @@
 <script setup></script>
 
 <template>
-    <div class="text-yellow-500">
+    <div>
         Home
     </div>
 </template>
