@@ -7,6 +7,6 @@
 </script>
 
 <template>
-    <Head title=" | Home" />
-    <h1>Home</h1>
+    <Head title=" | About" />
+    <h1>About</h1>
 </template>
