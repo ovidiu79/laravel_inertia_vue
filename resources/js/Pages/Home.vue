@@ -7,6 +7,6 @@
 </script>
 
 <template>
-    <Head title=" | Home" />
-    <h1>Home</h1>
+    <Head :title="` | ${$page.component}`" />
+    <h1>Home page</h1>
 </template>
