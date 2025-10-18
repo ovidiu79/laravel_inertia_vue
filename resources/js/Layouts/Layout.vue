@@ -7,12 +7,16 @@
         <header>
             <nav>
                 <div class="space-x-6">
-                    <Link class="nav-link" :href="route('home')">Home</Link>
+                    <Link class="nav-link" :class="{ 'bg-slate-700' : $page.component === 'Home'}" :href="route('home')">Home</Link>
                 </div>
 
-                <div class="space-x-6">
-                    <Link class="nav-link" :href="route('register')">Register</Link>
-                    <Link class="nav-link" :href="route('login')">Login</Link>
+                <div v-if="$page.props.auth.user">
+                    <Link :href="route('dashboard')" class="nav-link" :class="{ 'bg-slate-700' : $page.component === 'Dashboard'}">Dashboard</Link>
+                    <Link class="nav-link" method="POST" as="button" type="button" :href="route('logout')">Logout</Link>
+                </div>
+                <div v-else class="space-x-6">
+                    <Link class="nav-link" :class="{ 'bg-slate-700' : $page.component === 'Auth/Register'}" :href="route('register')">Register</Link>
+                    <Link class="nav-link" :class="{ 'bg-slate-700' : $page.component === 'Auth/Login'}" :href="route('login')">Login</Link>
                 </div>
             </nav>
         </header>
