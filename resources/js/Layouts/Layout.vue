@@ -10,7 +10,8 @@
                     <Link class="nav-link" :class="{ 'bg-slate-700' : $page.component === 'Home'}" :href="route('home')">Home</Link>
                 </div>
 
-                <div v-if="$page.props.auth.user">
+                <div v-if="$page.props.auth.user" class="flex space-x-6">
+                    <img class="avatar" :src="'storage/' + $page.props.auth.user.avatar ? 'storage/' + $page.props.auth.user.avatar : 'storage/avatars/default.jpeg'" alt="">
                     <Link :href="route('dashboard')" class="nav-link" :class="{ 'bg-slate-700' : $page.component === 'Dashboard'}">Dashboard</Link>
                     <Link class="nav-link" method="POST" as="button" type="button" :href="route('logout')">Logout</Link>
                 </div>

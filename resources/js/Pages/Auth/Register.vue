@@ -8,10 +8,12 @@
         password: null,
         password_confirmation: null,
         avatar: null,
+        preview: null,
     })
 
     const change = (e) => {
         form.avatar = e.target.files[0]
+        form.preview = URL.createObjectURL(e.target.files[0])
     }
 
     const submit = () => {
@@ -32,7 +34,10 @@
             <div>
                 <label for="avatar">Avatar</label>
                 <input @input="change" type="file" id="avatar">
-                <p>{{ form.errors.avatar }}</p>
+                <p class="error mt-2">{{ form.errors.avatar }}</p>
+                <div class="m-auto mt-2">
+                    <img class="object-cover w-28 h-28" :src="form.preview ? form.preview : 'storage/avatars/default.jpg'" alt="">
+                </div>
             </div>
 
             <TextInput name="name" v-model="form.name" :message="form.errors.name" />
