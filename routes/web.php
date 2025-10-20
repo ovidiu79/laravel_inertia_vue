@@ -1,9 +1,11 @@
 <?php
 
-use App\Http\Controllers\AuthController;
 use App\Models\User;
-use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+use Illuminate\Database\Eloquent\Builder;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,7 +18,15 @@ use Inertia\Inertia;
 |
 */
 
-Route::inertia('/', 'Home', ['users' => User::paginate(5)])->name('home');
+Route::get('/', function (Request $request) {
+    return inertia('Home', [
+        'users' => User::when($request->search, function (Builder $query) use ($request) {
+            return $query->where('name', 'like', '%' . $request->search . '%');
+        })->paginate(5)->withQueryString(),
+
+        'searchTerms' => $request->search,
+    ]);
+})->name('home');
 
 Route::middleware('auth')->group(function () {
     Route::inertia('/dashboard', 'Dashboard')->name('dashboard');

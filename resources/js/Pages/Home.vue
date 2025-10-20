@@ -1,11 +1,31 @@
 <script setup>
-    defineProps({
+import { ref, watch } from 'vue';
+import {router} from '@inertiajs/vue3';
+import { debounce } from 'lodash';
+
+    const props = defineProps({
         users: Object,
+        searchTerms: String
     })
+
+    const search = ref(props.searchTerms);
+
+    watch(
+        search,
+        debounce((q) => router.get('/', {search: q}, {preserveState: true}), 500),
+    );
 </script>
 
 <template>
     <Head :title="` | ${$page.component}`" />
+
+    <div>
+        <div class="flex justify-end mb-4">
+            <div class="w-1/4">
+                <input type="search" placeholder="Search" v-model="search" />
+            </div>
+        </div>
+    </div>
 
     <div>
         <table>
@@ -31,6 +51,8 @@
         </table>
 
         <!-- Pagination links -->
-         <div></div>
+         <div>
+            <Link v-for="link in users.links" :key="link.label" v-html="link.label" href="link.url" class="p-1 mx-1" :class="{'text-slate-300' : !link.url, 'text-blue-500' : link.active}"></Link>
+         </div>
     </div>
 </template>

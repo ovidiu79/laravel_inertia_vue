@@ -18,6 +18,7 @@
     },
     "dependencies": {
         "@inertiajs/vue3": "^2.2.7",
+        "lodash": "^4.17.21",
         "vue": "^3.5.22"
     }
 }
